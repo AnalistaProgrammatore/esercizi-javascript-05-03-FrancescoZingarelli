@@ -12,6 +12,7 @@ let parole = {
             return acc;
         }, []).join(", ")
     },
+    // versione di Aldo:
     paroleAlContrario2() {
         return this.parole.reduce((acc, curr) => curr + ", " + acc)
     }
