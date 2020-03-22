@@ -300,7 +300,7 @@ let tempi = [];
 for (let i = 0; i < 40; ++i) {
     let arr = [].concat(test.dataStore);
     let startTime = new Date().getTime();
-    arr.sort();
+    arr.sort((a, b) => a - b);
     tempi.push(new Date().getTime() - startTime)
 }
 console.log("20000 numeri casuali - JavaScript built-in sort:  ", tempi.reduce((acc, curr) => acc + curr) / 40, "ms")
