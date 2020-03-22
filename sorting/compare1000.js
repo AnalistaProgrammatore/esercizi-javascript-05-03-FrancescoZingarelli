@@ -323,7 +323,7 @@ facendo questi test risulta che per 5000 elementi già ordinati le velocità son
 6 posto - quick sort       (velocità media: circa 401.75 ms !!!???)
 
 
-e per 1000 elementi casuali le velocità sono:
+e per 5000 elementi casuali le velocità sono:
 
 1 posto - shell sort       (velocità media: circa 0.8 ms)
 2 posto - merge sort       (velocità media: circa 0.975 ms)
