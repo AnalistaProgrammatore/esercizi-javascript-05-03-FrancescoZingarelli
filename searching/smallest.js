@@ -32,6 +32,30 @@ function arrToString(arr) {
 
 
 
+// CONVERTITORE DI ARRAY DI NUMERI IN ARRAY DI STRINGHE
+
+function elementsToStrings(arr) {
+    for (let i = 0; i < arr.length; ++i) {
+        let numberString = String(arr[i]);
+        let letterString = "";
+        for (let number of numberString) {
+            if (number === "0") letterString += "zero";
+            if (number === "1") letterString += "one";
+            if (number === "2") letterString += "two";
+            if (number === "3") letterString += "three";
+            if (number === "4") letterString += "four";
+            if (number === "5") letterString += "five";
+            if (number === "6") letterString += "six";
+            if (number === "7") letterString += "seven";
+            if (number === "8") letterString += "eight";
+            if (number === "9") letterString += "nine";
+        }
+        arr[i] = letterString;
+    }
+}
+
+
+
 // FUNCTION TO FIND THE MINIMAL VALUE
 
 function findMin(arr) {
@@ -63,6 +87,36 @@ function insertionSort(arr) {
 
 
 
+// SHELL SORT (DINAMIC GAPS)
+
+function shellsortDyn(arr) {
+    var N = arr.length;
+    var h = 1;
+    while (h < N/3) {
+        h = 3 * h + 1;
+    }
+    while (h >= 1) {
+        for (var i = h; i < N; i++) {
+            for (var j = i; j >= h && arr[j] < arr[j-h]; j -= h) {
+                swap(arr, j, j-h);
+            }
+        }
+        h = (h-1)/3;
+    }
+}
+
+
+
+// SWAP
+
+function swap(arr, index1, index2) {
+    let temp = arr[index1];
+    arr[index1] = arr[index2];
+    arr[index2] = temp;
+}
+
+
+
 
 
 // ----------------------------------------------------------------------------------------------------------------------
@@ -78,12 +132,11 @@ numbers and text.
 */
 
 
-
-// NE HO FATTE TRE VERSIONI, BO...
-
+// NE HO FATTE TRE VERSIONI...
 
 
-// VERSIONE CON FILTER, RIMUOVENDO I VALORI MINIMI TROVATI DALL'ARRAY
+
+// VERSIONE CON FILTER, RIMUOVENDO OGNI VOLTA I VALORI MINIMI TROVATI DALL'ARRAY
 
 function secondSmallestFilter(arr) {
     let min = findMin(arr);
@@ -104,7 +157,7 @@ function nthSmallestFilter(arr, nth) {
 // VERSIONE ORDINANDO PRIMA L'ARRAY
 
 function secondSmallestSort(arr) {
-    insertionSort(arr);
+    shellsortDyn(arr);
     let min = arr[0];
     let secMin;
     for (let i = 0; i < arr.length && !secMin; ++i) {
@@ -115,7 +168,7 @@ function secondSmallestSort(arr) {
 }
 
 function nthSmallestSort(arr, nth) {
-    insertionSort(arr);
+    shellsortDyn(arr);
     let countMin = 1;
     let currMin = arr[0];
     let nthMin;
@@ -177,10 +230,38 @@ function nthSmallest(arr, nth) {
 
 
 
-let arr = randomArray(10);
-console.log(arrToString(arr));
+let arr = randomArray(10000);
 
-console.log("\nnumero più piccolo:", findMin(arr));
+// elementsToStrings(arr);     // FUNZIONE PER CONVERTIRE GLI ELEMENTI IN STRINGHE
 
-console.log("secondo numero più piccolo:", secondSmallest(arr));
-console.log("terzo numero più piccolo:", nthSmallest(arr, 3));
+console.log("numero più piccolo:", findMin(arr));
+
+console.log("secondo numero più piccolo:", secondSmallestSort(arr));
+console.log("terzo numero più piccolo:", nthSmallestSort(arr, 3));
+
+
+
+/*
+
+TEST FATTI CON ARRAY DI NUMERI CASUALI (FERMANDOMI COME NTH A 3):
+
+con la versione "filter" ha cominciato a rallentare molto a 100'000'000 elem. (è crashato vsc)
+con la versione "sort" ha cominciato a rallentare molto a 100'000'000 elem.
+con la versione "normale" ha cominciato a rallentare molto a 100'000'000 elem.
+
+TEST FATTI CON ARRAY DI STRINGHE CASUALI (usando "elementsToStrings") (FERMANDOMI COME NTH A 3):
+
+con la versione "filter" arrivato a 10'000'000 elem. mi ha detto chello spazio nel heap è finito
+con la versione "sort" ha cominciato a rallentare molto a 10'000'000 elem. (notevolmente di più degli altri)
+con la versione "normale" ha cominciato a rallentare molto a 10'000'000 elem.
+
+TEST FATTI CON ARRAY DI NUMERI CASUALI (CON NUMERO DI ELEMENTI BASSO MA ALZANDO MOLTO NTH):
+
+la più veloce sembra essere la versione "sort" dopo viene la versione "filter" e poi la versione "normale"
+
+TEST FATTI CON ARRAY DI STRINGHE CASUALI (CON NUMERO DI ELEMENTI BASSO MA ALZANDO MOLTO NTH):
+
+stessa cosa:
+la più veloce sembra essere la versione "sort" dopo viene la versione "filter" e poi la versione "normale"
+
+*/
