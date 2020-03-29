@@ -264,4 +264,14 @@ TEST FATTI CON ARRAY DI STRINGHE CASUALI (CON NUMERO DI ELEMENTI BASSO MA ALZAND
 stessa cosa:
 la più veloce sembra essere la versione "sort" dopo viene la versione "filter" e poi la versione "normale"
 
+
+
+CONCLUSIONI (approssimative, forse sarebbe meglio analizzare meglio la questione):
+
+per nth bassi sembra comportarsi bene il "normale", seguito dal "sort" e poi "filter"
+per nth alti il migliore sembra senza dubbio essere il "sort" (seguito da "filter" e poi "normale")
+...
+quindi per nth molto bassi si potrebbe usare il "normale", e per nth alti il "sort",
+comunque il "sort" sembra essere un buon algoritmo da usare anche in ogni situazione!
+
 */
